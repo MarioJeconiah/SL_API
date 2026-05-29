@@ -1,4 +1,7 @@
 package com.laundry.service;
 
-public class ReportService {
+import com.laundry.dto.response.ReportResponse;
+
+public interface ReportService {
+    ReportResponse getReport();
 }
