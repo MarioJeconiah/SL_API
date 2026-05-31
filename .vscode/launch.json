@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SmartLaundryApplication<smartLaundry>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.laundry.SmartLaundryApplication",
+            "projectName": "smartLaundry",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
