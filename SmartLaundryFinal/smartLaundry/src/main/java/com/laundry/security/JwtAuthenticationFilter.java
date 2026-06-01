@@ -15,11 +15,19 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter
-        extends OncePerRequestFilter {
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtService jwtService;
     private final CustomUserDetailsService userDetailsService;
+
+    // Tambahkan fungsi bypass ini agar request Swagger tidak disaring oleh filter JWT
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return path.startsWith("/swagger-ui") || 
+               path.startsWith("/v3/api-docs") || 
+               path.startsWith("/api/auth");
+    }
 
     @Override
     protected void doFilterInternal(
@@ -30,8 +38,7 @@ public class JwtAuthenticationFilter
 
         System.out.println("=== JWT FILTER CALLED ===");
 
-        final String authHeader =request.getHeader("Authorization");
-
+        final String authHeader = request.getHeader("Authorization");
         System.out.println("AUTH HEADER = " + authHeader);
 
         final String jwt;
@@ -46,24 +53,16 @@ public class JwtAuthenticationFilter
         username = jwtService.extractUsername(jwt);
         System.out.println("USERNAME FROM TOKEN = " + username);
 
-        if (username != null && SecurityContextHolder
-                .getContext()
-                .getAuthentication() == null) {
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
-            UserDetails userDetails =userDetailsService.loadUserByUsername(username);
-
-            if (jwtService.isTokenValid(
-                    jwt, userDetails
-            )) {
-                System.out.println("SETTING AUTHENTICATION FOR = "+ userDetails.getUsername());
-
-                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-
-                authToken.setDetails( new WebAuthenticationDetailsSource().buildDetails(request));
-
-                SecurityContextHolder
-                        .getContext()
-                        .setAuthentication(authToken);
+            if (jwtService.isTokenValid(jwt, userDetails)) {
+                System.out.println("SETTING AUTHENTICATION FOR = " + userDetails.getUsername());
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities()
+                );
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
 
