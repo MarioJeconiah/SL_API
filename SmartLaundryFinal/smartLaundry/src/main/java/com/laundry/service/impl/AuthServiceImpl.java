@@ -164,7 +164,7 @@ public class AuthServiceImpl implements AuthService {
     AuthResponse response =
         login(request);
 
-    if (!"OWNER".equals(
+    if (!"ADMIN".equals(
         response.getRole().name()
     )) {
 
