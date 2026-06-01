@@ -77,6 +77,19 @@ public class SecurityConfig {
     }
 
     @Bean
+    public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilterRegistration(JwtService jwtService, CustomUserDetailsService userDetailsService) {
+        FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
+        
+        // Masukkan objek filter kamu
+        registrationBean.setFilter(new JwtAuthenticationFilter(jwtService, userDetailsService));
+        
+        // KUNCI UTAMA: Beritahu Spring Boot untuk TIDAK mendaftarkan filter ini secara otomatis ke web server global
+        registrationBean.setEnabled(false);
+        
+        return registrationBean;
+    }
+
+    @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
         CorsConfiguration configuration = new CorsConfiguration();
