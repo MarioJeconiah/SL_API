@@ -167,7 +167,6 @@ public class AuthServiceImpl implements AuthService {
     if (!"ADMIN".equals(
         response.getRole().name()
     )) {
-
         throw new UnauthorizedException(
         "Admin access only"
         );
