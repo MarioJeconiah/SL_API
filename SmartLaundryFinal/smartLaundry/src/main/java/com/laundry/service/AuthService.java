@@ -9,6 +9,4 @@ public interface AuthService {
     AuthResponse register(RegisterRequest request);
 
     AuthResponse login(LoginRequest request);
-
-    AuthResponse adminLogin(LoginRequest request);
 }
