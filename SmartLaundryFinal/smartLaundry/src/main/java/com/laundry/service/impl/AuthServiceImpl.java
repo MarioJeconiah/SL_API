@@ -155,23 +155,4 @@ public class AuthServiceImpl implements AuthService {
             );
         }
     }
-
-    @Override
-    public AuthResponse adminLogin(
-        LoginRequest request
-    ) {
-
-    AuthResponse response =
-        login(request);
-
-    if (!"ADMIN".equals(
-        response.getRole().name()
-    )) {
-        throw new UnauthorizedException(
-        "Admin access only"
-        );
-     }
-
-     return response;
-     }
 }
