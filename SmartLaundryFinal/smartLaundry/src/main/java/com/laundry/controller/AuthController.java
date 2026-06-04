@@ -38,13 +38,4 @@ public class AuthController {
                 authService.login(request)
         );
     }
-
-    @PostMapping("/admin")
-    public ResponseEntity<AuthResponse> adminLogin(
-            @Valid @RequestBody LoginRequest request
-    ) {
-        return ResponseEntity.ok(
-                authService.adminLogin(request)
-        );
-    }
 }
