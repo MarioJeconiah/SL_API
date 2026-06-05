@@ -325,6 +325,26 @@ public class TransactionServiceImpl
     }
 
     @Override
+    public TransactionResponse updatePaymentStatus(
+            Long id,
+            UpdatePaymentStatusRequest request
+    ) {
+        Transaction transaction =
+               findTransactionAndValidateOwnership(id);
+            
+        transaction.setPaymentStatus(
+               request.getPaymentStatus()
+        );
+        transaction =
+               transactionRepository.save(
+                      transaction
+               );
+         return TransactionMapper.toResponse(
+                 transaction
+         );
+     }            
+
+    @Override
     public void cancelTransaction(
             Long id
     ) {
