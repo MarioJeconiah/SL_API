@@ -334,7 +334,7 @@ public class TransactionServiceImpl
                findTransactionAndValidateOwnership(id);
             
         transaction.setPaymentStatus(
-               request.getStatus()
+               request.getPaymentStatus()
         );
         transaction =
                transactionRepository.save(
