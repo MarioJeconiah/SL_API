@@ -116,6 +116,16 @@ public class TransactionController {
         );
     }
 
+    @PatchMapping("/{id}/payment-status")
+    public ResponseEntity<TransactionResponse> updatePaymentStatus(
+            @PathVariable Long id,
+            @RequestBody @Valid UpdatePaymentStatusRequest request
+    ) {
+        return ResponseEntity.ok(
+                transactionService.updatePaymentStatus(id, request)
+        );
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void>
     deleteTransaction(
