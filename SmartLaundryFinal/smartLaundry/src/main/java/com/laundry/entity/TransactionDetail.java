@@ -1,5 +1,5 @@
 package com.laundry.entity;
-
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +20,7 @@ public class TransactionDetail {
 
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
+    @JsonBackReference
     private Transaction transaction;
 
     @ManyToOne
