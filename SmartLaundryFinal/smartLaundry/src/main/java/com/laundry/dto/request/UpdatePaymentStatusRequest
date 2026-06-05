@@ -1,6 +1,6 @@
 package com.laundry.dto.request;
 
-import com.laundry.entity.enums.PaymentStatus;
+import com.laundry.enums.PaymentStatus;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
