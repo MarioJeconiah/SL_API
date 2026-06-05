@@ -1,4 +1,5 @@
 package com.laundry.entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +24,7 @@ public class Business {
     private String businessName;
 
     @OneToMany(mappedBy = "business")
+    @JsonManagedReference
     private List<User> users;
 
     @OneToMany(mappedBy = "business")
