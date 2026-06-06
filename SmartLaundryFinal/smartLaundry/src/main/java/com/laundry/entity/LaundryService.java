@@ -1,5 +1,7 @@
 package com.laundry.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.laundry.enums.ServiceType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -23,6 +25,7 @@ public class LaundryService {
 
     @ManyToOne
     @JoinColumn(name = "business_id", nullable = false)
+    @JsonBackReference("business-service")
     private Business business;
 
     @Column(name = "service_name", nullable = false)
@@ -39,6 +42,7 @@ public class LaundryService {
     private Integer estimatedHours;
 
     @OneToMany(mappedBy = "service")
+    @JsonManagedReference("service-detail")
     private List<TransactionDetail> TransactionDetails;
 
     @Column(name = "created_at")

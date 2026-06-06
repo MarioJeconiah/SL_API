@@ -24,13 +24,15 @@ public class Business {
     private String businessName;
 
     @OneToMany(mappedBy = "business")
-    @JsonManagedReference
+    @JsonManagedReference("business-user")
     private List<User> users;
 
     @OneToMany(mappedBy = "business")
+    @JsonManagedReference("business-customer")
     private List<Customer> customers;
 
     @OneToMany(mappedBy = "business")
+    @JsonManagedReference("business-service")
     private List<LaundryService> laundryServices;
 
     @OneToMany(mappedBy = "business")

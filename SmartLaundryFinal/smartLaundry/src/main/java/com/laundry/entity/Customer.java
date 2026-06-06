@@ -1,5 +1,7 @@
 package com.laundry.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +23,7 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "business_id", nullable = false)
+    @JsonBackReference("business-customer")
     private Business business;
 
     @Column(nullable = false)
@@ -32,7 +35,7 @@ public class Customer {
     private String address;
 
     @OneToMany(mappedBy = "customer")
-    @JsonBackReference
+    @JsonManagedReference("customer-transaction")
     private List<Transaction> transactions;
 
     @Column(name = "created_at")

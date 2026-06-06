@@ -20,11 +20,12 @@ public class TransactionDetail {
 
     @ManyToOne
     @JoinColumn(name = "transaction_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("transaction-detail")
     private Transaction transaction;
 
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
+    @JsonBackReference("service-detail")
     private LaundryService service;
 
     @Column(nullable = false)

@@ -23,7 +23,7 @@ public abstract class User {
 
     @ManyToOne
     @JoinColumn(name = "business_id", nullable = false)
-    @JsonBackReference
+    @JsonBackReference("business-user")
     protected Business business;
 
     @Column(nullable = false, unique = true)
