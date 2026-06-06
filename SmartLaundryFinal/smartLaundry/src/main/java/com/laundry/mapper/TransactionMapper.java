@@ -1,6 +1,7 @@
 package com.laundry.mapper;
 
 import com.laundry.dto.response.TransactionResponse;
+import com.laundry.dto.response.LaundryServiceResponse;
 import com.laundry.entity.Transaction;
 import com.laundry.entity.TransactionDetail;
 import com.laundry.entity.LaundryService;
